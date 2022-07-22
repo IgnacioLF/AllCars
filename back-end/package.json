@@ -1,0 +1,49 @@
+{
+    "name": "usermanagement",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon src/index.js",
+        "start": "node src/index.js",
+        "lint": "eslint src/**/*.js --fix",
+        "prettier": "prettier --write .",
+        "prepare": "husky install",
+        "postinstall": "npm run prepare"
+    },
+    "devDependencies": {
+        "eslint": "8.19.0",
+        "eslint-config-prettier": "8.5.0",
+        "eslint-config-standard": "17.0.0",
+        "eslint-plugin-import": "2.26.0",
+        "eslint-plugin-n": "15.2.4",
+        "eslint-plugin-promise": "6.0.0",
+        "husky": "8.0.1",
+        "lint-staged": "13.0.3",
+        "nodemon": "2.0.19",
+        "prettier": "2.7.1"
+    },
+    "imports": {
+        "#Controllers/*": "./src/controllers/*",
+        "#Config/*": "./src/config/*",
+        "#Dto/*": "./src/dto/*",
+        "#Routes/*": "./src/routes/*",
+        "#Schemas/*": "./src/schemas/*",
+        "#Constants/*": "./src/constants/*"
+    },
+    "lint-staged": {
+        "*.js": "eslint --fix",
+        "*.{js,md}": "prettier --write"
+    },
+    "dependencies": {
+        "@sinclair/typebox": "^0.24.20",
+        "ajv": "^8.11.0",
+        "ajv-errors": "^3.0.0",
+        "ajv-formats": "^2.1.1",
+        "bcrypt": "^5.0.1",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.1",
+        "express": "^4.18.1",
+        "jose": "4.8.3",
+        "mongoose": "^6.4.6"
+    }
+}
