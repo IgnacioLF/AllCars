@@ -25,9 +25,16 @@ const styles = StyleSheet.create({
 	},
 });
 
-export const WhiteInput = ({ title, isPassword, onChange, value, error }) => {
+export const WhiteInput = ({
+	title,
+	isPassword,
+	onChange,
+	value,
+	error,
+	redInput,
+}) => {
 	const inputStyles = [styles.input];
-	if (error) inputStyles.push(styles.inputError);
+	if (error || redInput) inputStyles.push(styles.inputError);
 
 	return (
 		<View style={styles.container}>

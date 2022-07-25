@@ -8,10 +8,14 @@ import {
 	ImageBackground,
 	ScrollView,
 	StatusBar,
+	Text,
+	ActivityIndicator,
 } from "react-native";
+import { userLoginAPI } from "../api/api";
 import { BlackButton } from "../components/BlackButton";
 import { PurpleButton } from "../components/PurpleButton";
 import { WhiteInput } from "../components/WhiteInput";
+import colors from "../constants/colors";
 
 const styles = StyleSheet.create({
 	container: {
@@ -36,21 +40,39 @@ const styles = StyleSheet.create({
 	buttonsContainer: {
 		marginTop: 25,
 	},
+	errorText: {
+		color: colors.red,
+		fontSize: 20,
+		marginTop: 10,
+	},
 });
 
-export default () => {
-	const { control, handleSubmit, reset } = useForm({
+export default ({ navigation }) => {
+	const [apiError, setApiError] = useState(false);
+	const [isLoading, setIsLoaging] = useState(false);
+	const { control, handleSubmit } = useForm({
 		defaultValues: {
 			email: "",
 			password: "",
 		},
 	});
 
-	function submit(data) {
+	const submit = async (data) => {
+		setApiError(false);
+		setIsLoaging(true);
 		const { email, password } = data;
-		// TODO server side validations
-		// reset();
-	}
+		try {
+			await userLoginAPI({ email, password });
+			setIsLoaging(false);
+			console.log("usuario logeado");
+			// TODO push to home screen
+			navigation.push("Tests");
+		} catch (error) {
+			setApiError(true);
+			setIsLoaging(false);
+			console.log("Login error: ", error);
+		}
+	};
 
 	return (
 		<View style={styles.container}>
@@ -74,57 +96,72 @@ export default () => {
 								style={styles.logo}
 							/>
 						</View>
-						<View style={styles.formContainer}>
-							<Controller
-								control={control}
-								name="email"
-								render={({
-									field: { onChange, value },
-									fieldState: { error },
-								}) => (
-									<WhiteInput
-										value={value}
-										title="Email"
-										onChange={(val) => onChange(val)}
-										error={error}
+						{isLoading ? (
+							<ActivityIndicator color={colors.white} size="large" />
+						) : (
+							<>
+								<View style={styles.formContainer}>
+									<Controller
+										control={control}
+										name="email"
+										render={({
+											field: { onChange, value },
+											fieldState: { error },
+										}) => (
+											<WhiteInput
+												value={value}
+												title="Email"
+												onChange={(val) => onChange(val)}
+												error={error}
+												redInput={apiError}
+											/>
+										)}
+										rules={{
+											required: "Email es requerido",
+											minLength: {
+												value: 4,
+												message: "El email no es válido",
+											},
+										}}
 									/>
-								)}
-								rules={{
-									required: "Email es requerido",
-									minLength: {
-										value: 4,
-										message: "El email no es válido",
-									},
-								}}
-							/>
-							<Controller
-								control={control}
-								name="password"
-								render={({
-									field: { onChange, value },
-									fieldState: { error },
-								}) => (
-									<WhiteInput
-										value={value}
-										title="Contraseña"
-										isPassword
-										onChange={(val) => onChange(val)}
-										error={error}
+									<Controller
+										control={control}
+										name="password"
+										render={({
+											field: { onChange, value },
+											fieldState: { error },
+										}) => (
+											<WhiteInput
+												value={value}
+												title="Contraseña"
+												isPassword
+												onChange={(val) => onChange(val)}
+												error={error}
+												redInput={apiError}
+											/>
+										)}
+										rules={{
+											required: "Contraseña es requerida",
+											minLength: {
+												value: 4,
+												message: "La contraseña no es válida",
+											},
+										}}
 									/>
-								)}
-								rules={{
-									required: "Contraseña es requerida",
-									minLength: {
-										value: 4,
-										message: "La contraseña no es válida",
-									},
-								}}
-							/>
-						</View>
-						<View style={styles.buttonsContainer}>
-							<BlackButton title="ENTRAR" onPress={handleSubmit(submit)} />
-							<PurpleButton title="REGISTRARSE" />
-						</View>
+									{apiError ? (
+										<Text style={styles.errorText}>
+											Credenciales Incorrectas
+										</Text>
+									) : null}
+								</View>
+								<View style={styles.buttonsContainer}>
+									<BlackButton title="ENTRAR" onPress={handleSubmit(submit)} />
+									<PurpleButton
+										title="REGISTRARSE" /* onPress={ TODO push to register screen} */
+									/>
+								</View>
+							</>
+						)}
 					</View>
 				</ScrollView>
 			</ImageBackground>
