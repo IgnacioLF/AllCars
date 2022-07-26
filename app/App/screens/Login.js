@@ -157,7 +157,8 @@ export default ({ navigation }) => {
 								<View style={styles.buttonsContainer}>
 									<BlackButton title="ENTRAR" onPress={handleSubmit(submit)} />
 									<PurpleButton
-										title="REGISTRARSE" /* onPress={ TODO push to register screen} */
+										title="REGISTRARSE"
+										onPress={() => navigation.push("Register")}
 									/>
 								</View>
 							</>
