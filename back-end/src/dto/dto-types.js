@@ -29,7 +29,7 @@ export const passwordSTOSchema = Type.String({
             'PASSWORD-MINLENGHT:La contraseña debe tener al menos 10 caractes de longitud',
         maxLength:
             'PASSWORD-MAXLENGHT:La contraseña debe tener como máximo 25 caracteres de longitud',
-        type: 'PASSWORD-TYPE:La contraseñad no es válida, debe ser una String',
+        type: 'PASSWORD-TYPE:La contraseña no es válida, debe ser una String',
         format: 'PASSWORD-FORMAT:El formato de la contraseña no es válida, debe contener una mayuscula una minuscula y un número',
     },
 });

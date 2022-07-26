@@ -63,8 +63,7 @@ export default ({ navigation }) => {
 			setIsLoading(false);
 			try {
 				await userLoginAPI({ email, password });
-				// TODO push to home screen
-				navigation.push("Test");
+				navigation.push("Home");
 			} catch (error) {
 				navigation.push("Login");
 			}
@@ -73,6 +72,7 @@ export default ({ navigation }) => {
 			errors.map((error) => {
 				const errorHeader = error.split(":")[0].split("-")[0];
 				const errorBody = error.split(":")[1];
+				if (!errorHeader || !errorBody) return setApiError(true);
 				switch (errorHeader) {
 					case "NAME":
 						return setError("name", {

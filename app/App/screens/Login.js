@@ -64,12 +64,10 @@ export default ({ navigation }) => {
 		try {
 			await userLoginAPI({ email, password });
 			setIsLoaging(false);
-			// TODO push to home screen
-			navigation.push("Test");
+			navigation.push("Home");
 		} catch (error) {
 			setApiError(true);
 			setIsLoaging(false);
-			console.log("Login error: ", error);
 		}
 	};
 
