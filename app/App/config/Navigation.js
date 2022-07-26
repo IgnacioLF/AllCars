@@ -11,16 +11,16 @@ const MainStackScreen = () => {
 	return (
 		<MainStack.Navigator>
 			<MainStack.Screen
-				name="Register"
-				component={Register}
-				options={{ headerShown: false }}
-			/>
-			<MainStack.Screen
 				name="Login"
 				component={LoginScreen}
 				options={{ headerShown: false }}
 			/>
-			<MainStack.Screen name="Tests" component={Test} />
+			<MainStack.Screen
+				name="Register"
+				component={Register}
+				options={{ headerShown: false }}
+			/>
+			<MainStack.Screen name="Test" component={Test} />
 		</MainStack.Navigator>
 	);
 };

@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-indent-props */
+import { useState } from "react";
 import {
 	ImageBackground,
 	ScrollView,
@@ -7,11 +8,13 @@ import {
 	StatusBar,
 	Image,
 	ActivityIndicator,
+	Text,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import colors from "../constants/colors";
 import { WhiteInput } from "../components/WhiteInput";
 import { PurpleButton } from "../components/PurpleButton";
+import { userLoginAPI, userRegisterAPI } from "../api/api";
+import colors from "../constants/colors";
 
 const styles = StyleSheet.create({
 	container: {
@@ -29,12 +32,20 @@ const styles = StyleSheet.create({
 	},
 	formContainer: {
 		marginBottom: 20,
+		paddingTop: 10,
+	},
+	errorText: {
+		color: colors.red,
+		fontSize: 20,
+		textAlign: "center",
 		marginTop: 10,
 	},
 });
 
 export default ({ navigation }) => {
-	const { control, handleSubmit, setError, watch } = useForm({
+	const [apiError, setApiError] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const { control, handleSubmit, setError, watch, resetField } = useForm({
 		defaultValues: {
 			name: "",
 			email: "",
@@ -44,9 +55,46 @@ export default ({ navigation }) => {
 	});
 	const pwd = watch("password");
 
-	const submit = (data) => {
-		// TODO apiUserRegister and push to home screen
-		console.log("user register", data);
+	const submit = async (data) => {
+		setIsLoading(true);
+		const { name, email, password } = data;
+		try {
+			await userRegisterAPI({ name, email, password });
+			setIsLoading(false);
+			try {
+				await userLoginAPI({ email, password });
+				// TODO push to home screen
+				navigation.push("Test");
+			} catch (error) {
+				navigation.push("Login");
+			}
+		} catch (errors) {
+			resetField("repeatPassword");
+			errors.map((error) => {
+				const errorHeader = error.split(":")[0].split("-")[0];
+				const errorBody = error.split(":")[1];
+				switch (errorHeader) {
+					case "NAME":
+						return setError("name", {
+							type: "custom",
+							message: errorBody,
+						});
+					case "EMAIL":
+						return setError("email", {
+							type: "custom",
+							message: errorBody,
+						});
+					case "PASSWORD":
+						return setError("password", {
+							type: "custom",
+							message: errorBody,
+						});
+					default:
+						return setApiError(true);
+				}
+			});
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -72,100 +120,99 @@ export default ({ navigation }) => {
 							style={styles.logo}
 							resizeMode={("center", "contain")}
 						/>
-						<View style={styles.formContainer}>
-							<Controller
-								control={control}
-								name="name"
-								render={({
-									field: { onChange, value },
-									fieldState: { error },
-								}) => (
-									<WhiteInput
-										value={value}
-										title="Nombre"
-										onChange={(val) => onChange(val)}
-										error={error}
+						{isLoading ? (
+							<ActivityIndicator color={colors.white} size="large" />
+						) : (
+							<>
+								<View style={styles.formContainer}>
+									<Controller
+										control={control}
+										name="name"
+										render={({
+											field: { onChange, value },
+											fieldState: { error },
+										}) => (
+											<WhiteInput
+												value={value}
+												title="Nombre"
+												onChange={(val) => onChange(val)}
+												error={error}
+											/>
+										)}
+										rules={{
+											required: "El nombre es requerido",
+										}}
 									/>
-								)}
-								rules={{
-									required: "El nombre es requerido",
-									minLength: {
-										value: 4,
-										message: "El nombre debe de tener como minimo 4 carácteres",
-									},
-									maxLength: {
-										value: 15,
-										message: "El nombre no puede contener mas de 15 carácteres",
-									},
-								}}
-							/>
-							<Controller
-								control={control}
-								name="email"
-								render={({
-									field: { onChange, value },
-									fieldState: { error },
-								}) => (
-									<WhiteInput
-										value={value}
-										title="Email"
-										onChange={(val) => onChange(val)}
-										error={error}
+									<Controller
+										control={control}
+										name="email"
+										render={({
+											field: { onChange, value },
+											fieldState: { error },
+										}) => (
+											<WhiteInput
+												value={value}
+												title="Email"
+												onChange={(val) => onChange(val)}
+												error={error}
+											/>
+										)}
+										rules={{
+											required: "El email es requerido",
+										}}
 									/>
-								)}
-								rules={{
-									required: "El email es requerido",
-									minLength: {
-										value: 4,
-										message: "El email no es válido",
-									},
-								}}
-							/>
-							<Controller
-								control={control}
-								name="password"
-								render={({
-									field: { onChange, value },
-									fieldState: { error },
-								}) => (
-									<WhiteInput
-										value={value}
-										title="Contraseña"
-										onChange={(val) => onChange(val)}
-										error={error}
-										isPassword
+									<Controller
+										control={control}
+										name="password"
+										render={({
+											field: { onChange, value },
+											fieldState: { error },
+										}) => (
+											<WhiteInput
+												value={value}
+												title="Contraseña"
+												onChange={(val) => onChange(val)}
+												error={error}
+												isPassword
+											/>
+										)}
+										rules={{
+											required: "Contraseña es requerida",
+										}}
 									/>
-								)}
-								rules={{
-									required: "Contraseña es requerida",
-									minLength: {
-										value: 4,
-										message: "La contraseña no es válida",
-									},
-								}}
-							/>
-							<Controller
-								control={control}
-								name="repeatPassword"
-								render={({
-									field: { onChange, value },
-									fieldState: { error },
-								}) => (
-									<WhiteInput
-										value={value}
-										title="Repetir contraseña"
-										onChange={(val) => onChange(val)}
-										error={error}
-										isPassword
+									<Controller
+										control={control}
+										name="repeatPassword"
+										render={({
+											field: { onChange, value },
+											fieldState: { error },
+										}) => (
+											<WhiteInput
+												value={value}
+												title="Repetir contraseña"
+												onChange={(val) => onChange(val)}
+												error={error}
+												isPassword
+											/>
+										)}
+										rules={{
+											validate: (value) =>
+												value === pwd || "Las contraseñas no coinciden",
+											required: "Repetir contraseña es requerida",
+										}}
 									/>
-								)}
-								rules={{
-									validate: (value) =>
-										value === pwd || "Las contraseñas no coinciden",
-								}}
-							/>
-						</View>
-						<PurpleButton title="REGISTRARSE" onPress={handleSubmit(submit)} />
+									{apiError ? (
+										<Text style={styles.errorText}>
+											Ha ocurrido un error vuelva a intentarlo
+										</Text>
+									) : null}
+								</View>
+								<PurpleButton
+									title="REGISTRARSE"
+									onPress={handleSubmit(submit)}
+								/>
+							</>
+						)}
 					</View>
 				</ScrollView>
 			</ImageBackground>

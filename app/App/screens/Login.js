@@ -64,9 +64,8 @@ export default ({ navigation }) => {
 		try {
 			await userLoginAPI({ email, password });
 			setIsLoaging(false);
-			console.log("usuario logeado");
 			// TODO push to home screen
-			navigation.push("Tests");
+			navigation.push("Test");
 		} catch (error) {
 			setApiError(true);
 			setIsLoaging(false);
