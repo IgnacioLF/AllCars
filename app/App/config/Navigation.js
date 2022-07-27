@@ -71,6 +71,11 @@ const MainStackScreen = () => {
 	return (
 		<MainStack.Navigator>
 			<MainStack.Screen
+				name="Home"
+				component={HomeTabNavigator}
+				options={{ headerShown: false }}
+			/>
+			<MainStack.Screen
 				name="Login"
 				component={LoginScreen}
 				options={{ headerShown: false }}
@@ -81,11 +86,6 @@ const MainStackScreen = () => {
 				options={{ headerShown: false }}
 			/>
 			<MainStack.Screen name="Test" component={Test} />
-			<MainStack.Screen
-				name="Home"
-				component={HomeTabNavigator}
-				options={{ headerShown: false }}
-			/>
 		</MainStack.Navigator>
 	);
 };

@@ -7,4 +7,6 @@ export default {
 	middleLightPurple: "#9752ed",
 	middleDarkPurple: "#7039d6",
 	red: "#CD5C5C",
+	gradientBlackLight: "#181818",
+	gradientBlackDark: "#565656",
 };
