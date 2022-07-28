@@ -11,7 +11,9 @@ const userUpdatePasswordController = async (req, res) => {
 
     const checkPassword = await compare(oldPassword, existingUserById.password);
     if (!checkPassword)
-        return res.status(401).send({ errors: ['Credenciales incorrectas'] });
+        return res
+            .status(401)
+            .send({ errors: ['PASSWORD-CONTENT:Contraseña erronea'] });
 
     const hasedPassword = await hash(newPassword, SALT);
 

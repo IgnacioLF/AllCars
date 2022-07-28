@@ -2,12 +2,17 @@ import { Type } from '@sinclair/typebox';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import addErrors from 'ajv-errors';
-import { nameDTOSchema, emailDTOSchema } from '#Dto/dto-types.js';
+import {
+    nameDTOSchema,
+    emailDTOSchema,
+    passwordSTOSchema,
+} from '#Dto/dto-types.js';
 
 const UpdateProfileDTOSchema = Type.Object(
     {
         name: nameDTOSchema,
         email: emailDTOSchema,
+        password: passwordSTOSchema,
     },
     {
         additionalProperties: false,
@@ -19,7 +24,7 @@ const UpdateProfileDTOSchema = Type.Object(
 );
 
 const ajv = new Ajv({ allErrors: true });
-
+ajv.addFormat('password', /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/);
 addFormats(ajv, ['email']).addKeyword('kind').addKeyword('modifier');
 addErrors(ajv);
 
