@@ -11,14 +11,32 @@ import Favorites from "../screens/Favorites";
 import Photos from "../screens/Photos";
 import Account from "../screens/Account";
 import colors from "../constants/colors";
+import ChangePassword from "../screens/ChangePassword";
+
+const screenGlobalOptionStyle = {
+	headerShown: false,
+};
 
 const MainStack = createStackNavigator();
+const AccountStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
 
+const AccountStackScreen = () => {
+	return (
+		<AccountStack.Navigator screenOptions={screenGlobalOptionStyle}>
+			<AccountStack.Screen name="ChangeProfile" component={Account} />
+			<AccountStack.Screen name="ChangePassword" component={ChangePassword} />
+		</AccountStack.Navigator>
+	);
+};
+
 const HomeTabNavigator = () => {
 	return (
-		<Tab.Navigator activeColor={colors.white}>
+		<Tab.Navigator
+			activeColor={colors.white}
+			screenOptions={screenGlobalOptionStyle}
+		>
 			<Tab.Screen
 				name="Cars"
 				component={Cars}
@@ -54,7 +72,7 @@ const HomeTabNavigator = () => {
 			/>
 			<Tab.Screen
 				name="Account"
-				component={Account}
+				component={AccountStackScreen}
 				options={{
 					tabBarLabel: "Cuenta",
 					tabBarIcon: ({ color }) => (
@@ -69,22 +87,10 @@ const HomeTabNavigator = () => {
 
 const MainStackScreen = () => {
 	return (
-		<MainStack.Navigator>
-			<MainStack.Screen
-				name="Home"
-				component={HomeTabNavigator}
-				options={{ headerShown: false }}
-			/>
-			<MainStack.Screen
-				name="Login"
-				component={LoginScreen}
-				options={{ headerShown: false }}
-			/>
-			<MainStack.Screen
-				name="Register"
-				component={Register}
-				options={{ headerShown: false }}
-			/>
+		<MainStack.Navigator screenOptions={screenGlobalOptionStyle}>
+			<MainStack.Screen name="Home" component={HomeTabNavigator} />
+			<MainStack.Screen name="Login" component={LoginScreen} />
+			<MainStack.Screen name="Register" component={Register} />
 			<MainStack.Screen name="Test" component={Test} />
 		</MainStack.Navigator>
 	);

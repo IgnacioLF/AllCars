@@ -5,6 +5,7 @@ import { View, StyleSheet, ScrollView, Image, StatusBar } from "react-native";
 import colors from "../constants/colors";
 import { WhiteInput } from "../components/WhiteInput";
 import { PurpleButton } from "../components/PurpleButton";
+import { GreyButton } from "../components/GreyButton";
 
 const styles = StyleSheet.create({
 	container: {
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
 	},
 	buttonContainer: {
 		marginTop: "7%",
+		marginBottom: 10,
 	},
 	formContainer: {
 		flex: 1,
@@ -36,17 +38,14 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default () => {
-	const { control, handleSubmit, setError, watch, resetField } = useForm({
+export default ({ navigation }) => {
+	const { control, handleSubmit, setError, resetField } = useForm({
 		defaultValues: {
 			name: "",
 			email: "",
 			password: "",
-			repeatPassword: "",
 		},
 	});
-
-	const pwd = watch("password");
 
 	const submit = async (data) => {};
 
@@ -129,28 +128,11 @@ export default () => {
 								required: "Contraseña es requerida",
 							}}
 						/>
-						<Controller
-							control={control}
-							name="repeatPassword"
-							render={({
-								field: { onChange, value },
-								fieldState: { error },
-							}) => (
-								<WhiteInput
-									value={value}
-									title="Repetir contraseña"
-									onChange={(val) => onChange(val)}
-									error={error}
-									isPassword
-								/>
-							)}
-							rules={{
-								validate: (value) =>
-									value === pwd || "Las contraseñas no coinciden",
-								required: "Repetir contraseña es requerida",
-							}}
-						/>
 						<View style={styles.buttonContainer}>
+							<GreyButton
+								title="Cambiar contraseña"
+								onPress={() => navigation.push("ChangePassword")}
+							/>
 							<PurpleButton
 								title="Guardar cambios"
 								onPress={handleSubmit(submit)}
