@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-indent-props */
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -19,6 +20,7 @@ import { PurpleButton } from "../components/PurpleButton";
 import { GreyButton } from "../components/GreyButton";
 import { RedButton } from "../components/RedButton";
 import { userProfileAPI, userUpdateProfileAPI } from "../api/api";
+import { removeJWT } from "../redux/User/user.actions";
 
 const styles = StyleSheet.create({
 	container: {
@@ -62,6 +64,7 @@ const styles = StyleSheet.create({
 });
 
 export default ({ navigation }) => {
+	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(false);
 	const [apiError, setApiError] = useState(false);
 	const { control, handleSubmit, setError, resetField, reset } = useForm({
@@ -224,7 +227,10 @@ export default ({ navigation }) => {
 								/>
 								<RedButton
 									title="Cerrar sesión"
-									/* onPress={() => TODO } */
+									onPress={() => {
+										dispatch(removeJWT());
+										navigation.push("Login");
+									}}
 								/>
 							</>
 						)}

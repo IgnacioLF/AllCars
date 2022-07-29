@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import Navigation from "./config/Navigation";
 import { persistor, store } from "./redux/createStore";
+import Navigation from "./config/Navigation";
 
 export default () => {
 	return (

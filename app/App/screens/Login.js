@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-indent-props */
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import {
 	View,
@@ -48,7 +50,16 @@ const styles = StyleSheet.create({
 	},
 });
 
+const mapState = ({ user }) => ({
+	jwt: user.jwt,
+});
+
 export default ({ navigation }) => {
+	const { jwt } = useSelector(mapState);
+	useEffect(() => {
+		if (jwt) navigation.push("Home");
+	}, [jwt]);
+
 	const [apiError, setApiError] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const { control, handleSubmit } = useForm({
