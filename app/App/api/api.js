@@ -1,9 +1,8 @@
 import axios from "axios";
+import { store } from "../redux/createStore";
+import { addJWT } from "../redux/User/user.actions";
 
 const baseUrl = "http://10.0.2.2:3000";
-
-// temp jwt TODO movo to redux
-let jwt = "";
 
 // User Login
 // post .../user/login {email,password} => jwt
@@ -14,7 +13,8 @@ export const userLoginAPI = (loginData) => {
 			.post(loginUrl, loginData)
 			.then((res) => {
 				console.log("login res:", res.data);
-				jwt = res.data.jwt;
+				/* jwt = res.data.jwt; */
+				store.dispatch(addJWT(res.data.jwt));
 
 				resolve();
 			})
@@ -43,10 +43,11 @@ export const userRegisterAPI = (registerData) => {
 	});
 };
 
-// User Data
+// User Profile
 // get .../user/profile auth-jwt => {name,email}
 export const userProfileAPI = () => {
 	const profileUrl = `${baseUrl}/user/profile`;
+	const jwt = store.getState().user.jwt;
 	const axiosConf = {
 		headers: { Authorization: `Bearer ${jwt}` },
 	};
@@ -69,6 +70,7 @@ export const userProfileAPI = () => {
 // patch .../user/update-profile auth-jwt + {name,email,password} => 200
 export const userUpdateProfileAPI = (updateProfileData) => {
 	const updateProfileUrl = `${baseUrl}/user/update-profile`;
+	const jwt = store.getState().user.jwt;
 	const axiosConf = {
 		headers: { Authorization: `Bearer ${jwt}` },
 	};
