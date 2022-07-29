@@ -8,6 +8,12 @@ const userUpdateProfileController = async (req, res) => {
     if (!existingUserById)
         return res.status(401).send({ errors: ['Usuario no autorizado'] });
 
+    const existingEmail = await UserModel.findOne({ email }).exec();
+    if (existingEmail && existingUserById.email !== email)
+        return res.status(409).send({
+            errors: ['EMAIL-EXIST:Ya existe un usuario con ese email'],
+        });
+
     const checkPassword = await compare(password, existingUserById.password);
     if (!checkPassword)
         return res

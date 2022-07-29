@@ -1,16 +1,17 @@
 /* eslint-disable react/jsx-indent-props */
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import colors from "../constants/colors";
 
 const styles = StyleSheet.create({
 	button: {
 		borderRadius: 30,
+		backgroundColor: colors.red,
+		paddingVertical: 5,
+		paddingHorizontal: 10,
 		marginTop: 5,
 		marginHorizontal: 20,
-		borderColor: colors.borderPurple,
+		borderColor: "#ae0000",
 		borderWidth: 2,
-		marginBottom: 5,
 	},
 	text: {
 		color: colors.white,
@@ -18,28 +19,16 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		textAlign: "center",
 	},
-	gradient: {
-		borderRadius: 30,
-		paddingVertical: 5,
-		paddingHorizontal: 10,
-	},
 });
 
-export const PurpleButton = ({ title, onPress }) => {
+export const RedButton = ({ title, onPress }) => {
 	return (
 		<TouchableOpacity
 			style={styles.button}
 			onPress={onPress}
 			activeOpacity={0.8}
 		>
-			<LinearGradient
-				colors={[colors.lightPurple, colors.darkPurple]}
-				style={styles.gradient}
-				start={[0, 1]}
-				end={[1, 1]}
-			>
-				<Text style={styles.text}>{title}</Text>
-			</LinearGradient>
+			<Text style={styles.text}>{title}</Text>
 		</TouchableOpacity>
 	);
 };

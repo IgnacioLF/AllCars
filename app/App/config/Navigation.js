@@ -88,9 +88,9 @@ const HomeTabNavigator = () => {
 const MainStackScreen = () => {
 	return (
 		<MainStack.Navigator screenOptions={screenGlobalOptionStyle}>
-			<MainStack.Screen name="Home" component={HomeTabNavigator} />
 			<MainStack.Screen name="Login" component={LoginScreen} />
 			<MainStack.Screen name="Register" component={Register} />
+			<MainStack.Screen name="Home" component={HomeTabNavigator} />
 			<MainStack.Screen name="Test" component={Test} />
 		</MainStack.Navigator>
 	);

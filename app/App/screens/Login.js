@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
 	},
 	buttonsContainer: {
 		marginTop: 25,
+		marginBottom: 10,
 	},
 	errorText: {
 		color: colors.red,
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
 
 export default ({ navigation }) => {
 	const [apiError, setApiError] = useState(false);
-	const [isLoading, setIsLoaging] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const { control, handleSubmit } = useForm({
 		defaultValues: {
 			email: "",
@@ -59,15 +60,15 @@ export default ({ navigation }) => {
 
 	const submit = async (data) => {
 		setApiError(false);
-		setIsLoaging(true);
+		setIsLoading(true);
 		const { email, password } = data;
 		try {
 			await userLoginAPI({ email, password });
-			setIsLoaging(false);
+			setIsLoading(false);
 			navigation.push("Home");
 		} catch (error) {
 			setApiError(true);
-			setIsLoaging(false);
+			setIsLoading(false);
 		}
 	};
 
@@ -153,11 +154,11 @@ export default ({ navigation }) => {
 								</View>
 								<View style={styles.buttonsContainer}>
 									<BlackButton title="ENTRAR" onPress={handleSubmit(submit)} />
-									<PurpleButton
-										title="REGISTRARSE"
-										onPress={() => navigation.push("Register")}
-									/>
 								</View>
+								<PurpleButton
+									title="REGISTRARSE"
+									onPress={() => navigation.push("Register")}
+								/>
 							</>
 						)}
 					</View>

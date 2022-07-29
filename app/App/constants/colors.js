@@ -9,4 +9,6 @@ export default {
 	red: "#CD5C5C",
 	gradientBlackLight: "#181818",
 	gradientBlackDark: "#565656",
+	lightGrey: "#a0a0a0",
+	darkGrey: "#666",
 };

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 		marginHorizontal: 20,
 		borderColor: colors.borderPurple,
 		borderWidth: 2,
-		marginBottom: 10,
+		marginBottom: 5,
 	},
 	text: {
 		color: colors.white,
@@ -33,7 +33,7 @@ export const GreyButton = ({ title, onPress }) => {
 			activeOpacity={0.8}
 		>
 			<LinearGradient
-				colors={["#a0a0a0", "#666"]}
+				colors={[colors.lightGrey, colors.darkGrey]}
 				style={styles.gradient}
 				start={[0, 1]}
 				end={[1, 1]}
