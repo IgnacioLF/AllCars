@@ -33,3 +33,17 @@ export const passwordSTOSchema = Type.String({
         format: 'PASSWORD-FORMAT:El formato de la contraseña no es válida, debe contener una mayuscula una minuscula y un número',
     },
 });
+
+export const newPasswordSTOSchema = Type.String({
+    format: 'password',
+    minLength: 10,
+    maxLength: 25,
+    errorMessage: {
+        minLength:
+            'NEWPASSWORD-MINLENGHT:La contraseña debe tener al menos 10 caractes de longitud',
+        maxLength:
+            'NEWPASSWORD-MAXLENGHT:La contraseña debe tener como máximo 25 caracteres de longitud',
+        type: 'NEWPASSWORD-TYPE:La contraseña no es válida, debe ser una String',
+        format: 'NEWPASSWORD-FORMAT:El formato de la contraseña no es válida, debe contener una mayuscula una minuscula y un número',
+    },
+});

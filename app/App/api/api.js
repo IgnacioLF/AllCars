@@ -88,3 +88,26 @@ export const userUpdateProfileAPI = (updateProfileData) => {
 			});
 	});
 };
+
+// User ChangePassword
+// patch .../user/update-password auth-jwt + {oldPassword, newPassword} => 200
+export const userUpdatePasswordAPI = (updatePasswordData) => {
+	const updatePasswordUrl = `${baseUrl}/user/update-password`;
+	const jwt = store.getState().user.jwt;
+	const axiosConf = {
+		headers: { Authorization: `Bearer ${jwt}` },
+	};
+
+	return new Promise((resolve, reject) => {
+		axios
+			.patch(updatePasswordUrl, updatePasswordData, axiosConf)
+			.then((res) => {
+				console.log("update-password res:", res.data);
+				resolve(res.data);
+			})
+			.catch((err) => {
+				console.log("update-password errors:", err.response.data.errors);
+				reject(err.response.data.errors);
+			});
+	});
+};
