@@ -47,3 +47,51 @@ export const newPasswordSTOSchema = Type.String({
         format: 'NEWPASSWORD-FORMAT:El formato de la contraseña no es válida, debe contener una mayuscula una minuscula y un número',
     },
 });
+
+export const carNameDTOSchema = Type.String({
+    minLength: 4,
+    maxLength: 25,
+    errorMessage: {
+        minLength:
+            'NAME-MINLENGHT:El nombre debe de tener como minimo 4 carácteres',
+        maxLength:
+            'NAME-MAXLENGHT:El nombre no puede contener mas de 25 carácteres',
+        type: 'NAME-TYPE:El nombre debe de ser un String',
+    },
+});
+
+export const typeDTOSchema = Type.String({
+    minLength: 3,
+    maxLength: 10,
+    errorMessage: {
+        minLength:
+            'TYPE-MINLENGHT:El tipo debe de tener como minimo 4 carácteres',
+        maxLength:
+            'TYPE-MAXLENGHT:El tipo no puede contener mas de 10 carácteres',
+        type: 'TYPE-TYPE:El tipo debe de ser un String',
+    },
+});
+
+export const priceDTOSchema = Type.String({
+    minLength: 1,
+    maxLength: 7,
+    errorMessage: {
+        minLength:
+            'PRICE-MINLENGHT:El precio debe de tener como minimo 1 carácteres',
+        maxLength:
+            'PRICE-MAXLENGHT:El precio no puede contener mas de 7 carácteres',
+        type: 'PRICE-TYPE:El precio debe de ser un String',
+    },
+});
+
+export const descriptionDTOSchema = Type.String({
+    minLength: 8,
+    maxLength: 100,
+    errorMessage: {
+        minLength:
+            'DESCRIPTION-MINLENGHT:La descripción debe de tener como minimo 8 carácteres',
+        maxLength:
+            'DESCRIPTION-MAXLENGHT:La descripción no puede contener mas de 100 carácteres',
+        type: 'DESCRIPTION-TYPE:La descripción debe de ser un String',
+    },
+});
