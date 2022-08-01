@@ -62,36 +62,36 @@ export const carNameDTOSchema = Type.String({
 
 export const typeDTOSchema = Type.String({
     minLength: 3,
-    maxLength: 10,
+    maxLength: 15,
     errorMessage: {
         minLength:
-            'TYPE-MINLENGHT:El tipo debe de tener como minimo 4 carácteres',
+            'TYPE-MINLENGHT:El tipo debe de tener como minimo 3 carácteres',
         maxLength:
-            'TYPE-MAXLENGHT:El tipo no puede contener mas de 10 carácteres',
+            'TYPE-MAXLENGHT:El tipo no puede contener mas de 15 carácteres',
         type: 'TYPE-TYPE:El tipo debe de ser un String',
     },
 });
 
 export const priceDTOSchema = Type.String({
     minLength: 1,
-    maxLength: 7,
+    maxLength: 10,
     errorMessage: {
         minLength:
             'PRICE-MINLENGHT:El precio debe de tener como minimo 1 carácteres',
         maxLength:
-            'PRICE-MAXLENGHT:El precio no puede contener mas de 7 carácteres',
+            'PRICE-MAXLENGHT:El precio no puede contener mas de 10 carácteres',
         type: 'PRICE-TYPE:El precio debe de ser un String',
     },
 });
 
 export const descriptionDTOSchema = Type.String({
     minLength: 8,
-    maxLength: 100,
+    maxLength: 450,
     errorMessage: {
         minLength:
             'DESCRIPTION-MINLENGHT:La descripción debe de tener como minimo 8 carácteres',
         maxLength:
-            'DESCRIPTION-MAXLENGHT:La descripción no puede contener mas de 100 carácteres',
+            'DESCRIPTION-MAXLENGHT:La descripción no puede contener mas de 450 carácteres',
         type: 'DESCRIPTION-TYPE:La descripción debe de ser un String',
     },
 });

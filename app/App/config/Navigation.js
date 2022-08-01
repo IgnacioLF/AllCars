@@ -7,6 +7,7 @@ import LoginScreen from "../screens/Login";
 import Test from "../screens/Test";
 import Register from "../screens/Register";
 import Cars from "../screens/Cars";
+import CarDetails from "../screens/CarDetails";
 import Favorites from "../screens/Favorites";
 import Photos from "../screens/Photos";
 import Account from "../screens/Account";
@@ -19,8 +20,18 @@ const screenGlobalOptionStyle = {
 
 const MainStack = createStackNavigator();
 const AccountStack = createStackNavigator();
+const CarStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
+
+const CarsStackScreen = () => {
+	return (
+		<CarStack.Navigator screenOptions={screenGlobalOptionStyle}>
+			<CarStack.Screen name="Cars" component={Cars} />
+			<CarStack.Screen name="CarDetails" component={CarDetails} />
+		</CarStack.Navigator>
+	);
+};
 
 const AccountStackScreen = () => {
 	return (
@@ -38,8 +49,8 @@ const HomeTabNavigator = () => {
 			screenOptions={screenGlobalOptionStyle}
 		>
 			<Tab.Screen
-				name="Cars"
-				component={Cars}
+				name="CarsTab"
+				component={CarsStackScreen}
 				options={{
 					tabBarLabel: "Coches",
 					tabBarIcon: ({ color }) => (

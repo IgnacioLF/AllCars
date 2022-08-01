@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "../redux/createStore";
 import { addJWT } from "../redux/User/user.actions";
 
-const baseUrl = "http://10.0.2.2:3000";
+export const baseUrl = "http://10.0.2.2:3000";
 
 // User Login
 // post .../user/login {email,password} => jwt
@@ -107,6 +107,25 @@ export const userUpdatePasswordAPI = (updatePasswordData) => {
 			})
 			.catch((err) => {
 				console.log("update-password errors:", err.response.data.errors);
+				reject(err.response.data.errors);
+			});
+	});
+};
+
+// Car all
+// get .../car/all () => {cars}
+export const carAllAPI = () => {
+	const allUrl = `${baseUrl}/car/all`;
+
+	return new Promise((resolve, reject) => {
+		axios
+			.get(allUrl)
+			.then((res) => {
+				console.log("car-all res:", res.data);
+				resolve(res.data);
+			})
+			.catch((err) => {
+				console.log("car-all errors:", err.response.data.errors);
 				reject(err.response.data.errors);
 			});
 	});
