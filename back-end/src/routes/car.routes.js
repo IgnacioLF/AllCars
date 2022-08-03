@@ -11,7 +11,7 @@ import { Router } from 'express';
 const carRouter = Router();
 
 carRouter.get('/all', carAllController);
-carRouter.get('/car', carIDDTO, carCarController);
+carRouter.post('/car', carIDDTO, carCarController);
 carRouter.post(
     '/new-car',
     upload.single('carImage'),

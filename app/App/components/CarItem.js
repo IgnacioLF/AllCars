@@ -1,5 +1,12 @@
 /* eslint-disable react/jsx-indent-props */
-import { View, StyleSheet, Image, Text } from "react-native";
+import {
+	View,
+	StyleSheet,
+	Image,
+	Text,
+	TouchableOpacity,
+	StatusBar,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import colors from "../constants/colors";
 import { baseUrl } from "../api/api";
@@ -13,14 +20,17 @@ const styles = StyleSheet.create({
 	gradient: {
 		flex: 1,
 		flexDirection: "row",
-		borderRadius: 10,
 		alignItems: "center",
 		width: "100%",
+		borderColor: colors.borderPurple,
+		borderWidth: 2,
+		borderRadius: 10,
 	},
 	image: {
 		width: "35%",
 		height: "100%",
-		borderRadius: 10,
+		borderTopLeftRadius: 10,
+		borderBottomLeftRadius: 10,
 	},
 	details: {
 		justifyContent: "center",
@@ -45,12 +55,17 @@ const styles = StyleSheet.create({
 	},
 });
 
-export const CarItem = ({ image, name, type, price }) => {
+export const CarItem = ({ image, name, type, price, onPress }) => {
 	const imageURL = `${baseUrl}/${image.replace(/[/]/, "/")}`;
 	// TODO styles for diferent types
 
 	return (
-		<View style={styles.container}>
+		<TouchableOpacity style={styles.container} onPress={onPress}>
+			<StatusBar
+				barStyle="dark-content"
+				translucent
+				backgroundColor="transparent"
+			/>
 			<LinearGradient
 				colors={[colors.lightGrey, colors.darkGrey]}
 				style={styles.gradient}
@@ -72,6 +87,6 @@ export const CarItem = ({ image, name, type, price }) => {
 					<Text style={styles.price}>{`${price}€`}</Text>
 				</View>
 			</LinearGradient>
-		</View>
+		</TouchableOpacity>
 	);
 };

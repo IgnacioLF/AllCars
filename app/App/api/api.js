@@ -130,3 +130,22 @@ export const carAllAPI = () => {
 			});
 	});
 };
+
+// Car car
+// post .../car/car {id} => {car}
+export const carCarAPI = (idCar) => {
+	const carUrl = `${baseUrl}/car/car`;
+
+	return new Promise((resolve, reject) => {
+		axios
+			.post(carUrl, idCar)
+			.then((res) => {
+				console.log("car-car res:", res.data);
+				resolve(res.data);
+			})
+			.catch((err) => {
+				console.log("car-car errors:", err.response.data.errors);
+				reject(err.response.data.errors);
+			});
+	});
+};

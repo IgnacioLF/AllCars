@@ -2,7 +2,13 @@
 /* eslint-disable react/jsx-indent-props */
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, SafeAreaView } from "react-native";
+import {
+	View,
+	StyleSheet,
+	FlatList,
+	SafeAreaView,
+	StatusBar,
+} from "react-native";
 import { carAllAPI } from "../api/api";
 import { CarItem } from "../components/CarItem";
 import colors from "../constants/colors";
@@ -30,6 +36,7 @@ const styles = StyleSheet.create({
 });
 
 export default ({ navigation }) => {
+	// TODO isloading and no data
 	const [carsData, setCarsData] = useState();
 	useEffect(() => {
 		const getAllCars = async () => {
@@ -44,6 +51,11 @@ export default ({ navigation }) => {
 	}, []);
 	return (
 		<View style={styles.container}>
+			<StatusBar
+				barStyle="light-content"
+				translucent
+				backgroundColor="transparent"
+			/>
 			<LinearGradient
 				colors={[colors.gradientBlackLight, colors.gradientBlackDark]}
 				style={styles.background}
@@ -58,6 +70,9 @@ export default ({ navigation }) => {
 									name={item.name}
 									price={item.price}
 									type={item.type}
+									onPress={() =>
+										navigation.navigate("CarDetails", { id: item._id })
+									}
 								/>
 							);
 						}}

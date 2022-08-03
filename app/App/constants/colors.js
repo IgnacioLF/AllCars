@@ -11,4 +11,5 @@ export default {
 	gradientBlackDark: "#565656",
 	lightGrey: "#a0a0a0",
 	darkGrey: "#666",
+	black: "#000000",
 };
