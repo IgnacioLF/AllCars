@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-indent-props */
 import { LinearGradient } from "expo-linear-gradient";
-import { useEffect, useState } from "react";
 import {
 	View,
 	StyleSheet,
@@ -10,8 +9,9 @@ import {
 	Image,
 	ScrollView,
 } from "react-native";
-import { carCarAPI, baseUrl } from "../api/api";
+import { baseUrl } from "../api/api";
 import colors from "../constants/colors";
+import { useCarsDetails } from "../customHooks/useCarsDetails";
 
 const styles = StyleSheet.create({
 	container: {
@@ -79,22 +79,8 @@ const styles = StyleSheet.create({
 });
 
 export default ({ route }) => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [car, setCar] = useState();
 	const id = route.params.id;
-	useEffect(() => {
-		setIsLoading(true);
-		const getCar = async () => {
-			try {
-				const carData = await carCarAPI({ id });
-				setCar(carData);
-				setIsLoading(false);
-			} catch (error) {
-				setIsLoading(false);
-			}
-		};
-		getCar();
-	}, []);
+	const { car, isLoading } = useCarsDetails(id);
 
 	// TODO add fav button
 	return (

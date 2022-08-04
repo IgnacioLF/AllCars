@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-indent-props */
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { LinearGradient } from "expo-linear-gradient";
@@ -19,8 +17,9 @@ import { WhiteInput } from "../components/WhiteInput";
 import { PurpleButton } from "../components/PurpleButton";
 import { GreyButton } from "../components/GreyButton";
 import { RedButton } from "../components/RedButton";
-import { userProfileAPI, userUpdateProfileAPI } from "../api/api";
+import { userUpdateProfileAPI } from "../api/api";
 import { removeJWT } from "../redux/User/user.actions";
+import { useUserData } from "../customHooks/useUserData";
 
 const styles = StyleSheet.create({
 	container: {
@@ -65,8 +64,6 @@ const styles = StyleSheet.create({
 
 export default ({ navigation }) => {
 	const dispatch = useDispatch();
-	const [isLoading, setIsLoading] = useState(false);
-	const [apiError, setApiError] = useState(false);
 	const { control, handleSubmit, setError, resetField, reset } = useForm({
 		defaultValues: {
 			name: "",
@@ -74,24 +71,11 @@ export default ({ navigation }) => {
 			password: "",
 		},
 	});
+	const { apiError, isLoading, setIsLoading, setApiError } = useUserData(reset);
 	const updatedProfile = () =>
 		Alert.alert("Actualización de usuario", "Usuario actualizado con éxito", [
 			{ text: "OK" },
 		]);
-
-	useEffect(() => {
-		const getUserData = async () => {
-			setIsLoading(true);
-			try {
-				const data = await userProfileAPI();
-				reset(data);
-				setIsLoading(false);
-			} catch (error) {
-				setApiError(true);
-			}
-		};
-		getUserData();
-	}, []);
 
 	const submit = async (data) => {
 		setIsLoading(true);
