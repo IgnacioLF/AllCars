@@ -12,7 +12,7 @@ const carRemoveController = async (req, res) => {
         } else {
             await car.remove();
 
-            return res.status(200).send('coche eliminado satisfactoriamente');
+            return res.status(200).send('Coche eliminado éxito');
         }
     });
 };

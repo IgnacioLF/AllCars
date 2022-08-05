@@ -95,3 +95,10 @@ export const descriptionDTOSchema = Type.String({
         type: 'DESCRIPTION-TYPE:La descripción debe de ser un String',
     },
 });
+
+export const daytimeDTOSchema = Type.Boolean({
+    errorMessage: {
+        type: 'DAYTIME-TYPE:Daytime debe de ser un boolean',
+        format: 'DAYTIME-FORMAT:El formato de daytime no es válido',
+    },
+});

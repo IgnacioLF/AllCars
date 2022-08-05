@@ -19,7 +19,7 @@ const NewCarDTOSchema = Type.Object(
         additionalProperties: false,
         errorMessage: {
             additionalProperties:
-                'El formato del objeto de crear nuevo coche no es válido',
+                'El formato del objeto para crear un nuevo coche no es válido',
         },
     }
 );
