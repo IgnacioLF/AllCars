@@ -113,7 +113,7 @@ export const userUpdatePasswordAPI = (updatePasswordData) => {
 };
 
 // Car all
-// get .../car/all () => {cars}
+// get .../car/all () => [{cars}...]
 export const carAllAPI = () => {
 	const allUrl = `${baseUrl}/car/all`;
 
@@ -145,6 +145,45 @@ export const carCarAPI = (idCar) => {
 			})
 			.catch((err) => {
 				console.log("car-car errors:", err.response.data.errors);
+				reject(err.response.data.errors);
+			});
+	});
+};
+
+// Photo allday
+// get ../photo/allday () => [{photo}...]
+export const photoAlldayAPI = () => {
+	const alldayUrl = `${baseUrl}/photo/allday`;
+
+	return new Promise((resolve, reject) => {
+		axios
+			.get(alldayUrl)
+			.then((res) => {
+				console.log("photo-allday res:", res.data);
+				resolve(res.data);
+			})
+			.catch((err) => {
+				console.log("photo-allday errors:", err);
+				console.log("photo-allday errors:", err.response.data.errors);
+				reject(err.response.data.errors);
+			});
+	});
+};
+
+// Photo allnight
+// get ../photo/allnight () => [{photo}...]
+export const photoAllnightAPI = () => {
+	const allnightUrl = `${baseUrl}/photo/allnight`;
+
+	return new Promise((resolve, reject) => {
+		axios
+			.get(allnightUrl)
+			.then((res) => {
+				console.log("photo-allnight res:", res.data);
+				resolve(res.data);
+			})
+			.catch((err) => {
+				console.log("photo-allnight errors:", err.response.data.errors);
 				reject(err.response.data.errors);
 			});
 	});

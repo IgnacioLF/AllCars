@@ -1,32 +1,131 @@
 /* eslint-disable react/jsx-indent-props */
 import { LinearGradient } from "expo-linear-gradient";
-import { View, StyleSheet, Text } from "react-native";
+import { useEffect, useState } from "react";
+import {
+	View,
+	StyleSheet,
+	Image,
+	TouchableOpacity,
+	ActivityIndicator,
+	FlatList,
+} from "react-native";
 import colors from "../constants/colors";
+import { baseUrl, photoAlldayAPI, photoAllnightAPI } from "../api/api";
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
-	text: {
-		color: colors.white,
-		fontSize: 20,
-	},
 	background: {
 		height: "100%",
 		width: "100%",
-		alignItems: "center",
-		justifyContent: "center",
+	},
+	header: {
+		height: "25%",
+		width: "100%",
+		borderRadius: 15,
+		flexDirection: "row",
+	},
+	imageContainer: {
+		height: "100%",
+		width: "50%",
+	},
+	imageDay: {
+		height: "100%",
+		width: "100%",
+	},
+	imageNight: {
+		height: "100%",
+		width: "100%",
+	},
+	loading: {
+		height: "80%",
+	},
+	list: {
+		marginTop: 20,
+		marginBottom: 20,
+		flex: 1,
+	},
+	separator: {
+		height: 25,
+		width: "100%",
+	},
+	photo: {
+		flex: 1,
+		height: 100,
+		marginHorizontal: 10,
 	},
 });
 
 export default () => {
+	const [dayTime, setDayTime] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);
+	const [photosData, setPhotosData] = useState();
+	// TODO fetch photos
+
 	return (
 		<View style={styles.container}>
 			<LinearGradient
 				colors={[colors.gradientBlackLight, colors.gradientBlackDark]}
 				style={styles.background}
 			>
-				<Text style={styles.text}>This is Photos</Text>
+				<View style={styles.header}>
+					<TouchableOpacity
+						style={styles.imageContainer}
+						activeOpacity={0.8}
+						onPress={() => setDayTime(true)}
+					>
+						<Image
+							source={
+								dayTime
+									? require("../assets/images/dayTimeActive.png")
+									: require("../assets/images/dayTimeInactive.png")
+							}
+							style={styles.imageDay}
+							resizeMode="cover"
+						/>
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.imageContainer}
+						activeOpacity={0.8}
+						onPress={() => setDayTime(false)}
+					>
+						<Image
+							source={
+								dayTime
+									? require("../assets/images/nightTimeInactive.png")
+									: require("../assets/images/nightTimeActive.png")
+							}
+							style={styles.imageNight}
+							resizeMode="cover"
+						/>
+					</TouchableOpacity>
+				</View>
+				{isLoading ? (
+					<ActivityIndicator
+						color={colors.white}
+						size="large"
+						style={styles.loading}
+					/>
+				) : (
+					<FlatList
+						data={photosData}
+						renderItem={({ item }) => {
+							const imageURL = `${baseUrl}/${item.image.replace(/[/]/, "/")}`;
+							return (
+								<Image
+									source={{
+										uri: imageURL,
+									}}
+									resizeMode="cover"
+									style={styles.photo}
+								/>
+							);
+						}}
+						style={styles.list}
+						ItemSeparatorComponent={() => <View style={styles.separator} />}
+					/>
+				)}
 			</LinearGradient>
 		</View>
 	);
