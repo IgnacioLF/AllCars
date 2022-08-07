@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-indent-props */
 import { LinearGradient } from "expo-linear-gradient";
-import { useEffect, useState } from "react";
 import {
 	View,
 	StyleSheet,
@@ -10,7 +9,8 @@ import {
 	FlatList,
 } from "react-native";
 import colors from "../constants/colors";
-import { baseUrl, photoAlldayAPI, photoAllnightAPI } from "../api/api";
+import { baseUrl } from "../api/api";
+import { usePhotos } from "../customHooks/usePhotos";
 
 const styles = StyleSheet.create({
 	container: {
@@ -52,16 +52,16 @@ const styles = StyleSheet.create({
 	},
 	photo: {
 		flex: 1,
-		height: 100,
+		height: 200,
 		marginHorizontal: 10,
+		borderColor: colors.borderPurple,
+		borderWidth: 3,
+		borderRadius: 10,
 	},
 });
 
 export default () => {
-	const [dayTime, setDayTime] = useState(true);
-	const [isLoading, setIsLoading] = useState(true);
-	const [photosData, setPhotosData] = useState();
-	// TODO fetch photos
+	const { dayTime, setDayTime, isLoading, photosData } = usePhotos();
 
 	return (
 		<View style={styles.container}>
