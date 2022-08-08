@@ -18,6 +18,11 @@ const userSchema = new Schema({
         type: String,
         require: true,
     },
+    favorites: [
+        {
+            type: String,
+        },
+    ],
 });
 
 const UserModel = model('User', userSchema);
