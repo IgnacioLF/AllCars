@@ -151,7 +151,7 @@ export const carCarAPI = (idCar) => {
 };
 
 // Photo allday
-// get ../photo/allday () => [{photo}...]
+// get .../photo/allday () => [{photo}...]
 export const photoAlldayAPI = () => {
 	const alldayUrl = `${baseUrl}/photo/allday`;
 
@@ -171,7 +171,7 @@ export const photoAlldayAPI = () => {
 };
 
 // Photo allnight
-// get ../photo/allnight () => [{photo}...]
+// get .../photo/allnight () => [{photo}...]
 export const photoAllnightAPI = () => {
 	const allnightUrl = `${baseUrl}/photo/allnight`;
 
@@ -184,6 +184,101 @@ export const photoAllnightAPI = () => {
 			})
 			.catch((err) => {
 				console.log("photo-allnight errors:", err.response.data.errors);
+				reject(err.response.data.errors);
+			});
+	});
+};
+
+// User favorites add
+// patch .../user/favorites/add auth-jwt + {id} => 200
+export const userFavoritesAddAPI = (id) => {
+	const favoritesAddUrl = `${baseUrl}/user/favorites/add`;
+	const jwt = store.getState().user.jwt;
+	const axiosConf = {
+		headers: { Authorization: `Bearer ${jwt}` },
+	};
+
+	return new Promise((resolve, reject) => {
+		axios
+			.patch(favoritesAddUrl, id, axiosConf)
+			.then((res) => {
+				console.log("user-favorites-add res:", res.data);
+				resolve(res.data);
+			})
+			.catch((err) => {
+				console.log("user-favorites-add errors:", err.response.data.errors);
+				reject(err.response.data.errors);
+			});
+	});
+};
+
+// User favorites remove
+// delete .../user/favorites/remove auth-jwt + {id} => 200
+export const userFavoritesRemoveAPI = (id) => {
+	const favoritesRemoveUrl = `${baseUrl}/user/favorites/remove`;
+	const jwt = store.getState().user.jwt;
+	const axiosConf = {
+		headers: { Authorization: `Bearer ${jwt}` },
+		data: {
+			id,
+		},
+	};
+
+	return new Promise((resolve, reject) => {
+		axios
+			.delete(favoritesRemoveUrl, axiosConf)
+			.then((res) => {
+				console.log("user-favorites-remove res:", res.data);
+				resolve(res.data);
+			})
+			.catch((err) => {
+				console.log("user-favorites-remove errors:", err.response.data.errors);
+				reject(err.response.data.errors);
+			});
+	});
+};
+
+// User favorites all
+// get .../user/favorites/all auth-jwt => 200
+export const userFavoritesAllAPI = () => {
+	const favoritesAllUrl = `${baseUrl}/user/favorites/all`;
+	const jwt = store.getState().user.jwt;
+	const axiosConf = {
+		headers: { Authorization: `Bearer ${jwt}` },
+	};
+
+	return new Promise((resolve, reject) => {
+		axios
+			.get(favoritesAllUrl, axiosConf)
+			.then((res) => {
+				console.log("user-favorites-all res:", res.data);
+				resolve(res.data);
+			})
+			.catch((err) => {
+				console.log("user-favorites-all errors:", err.response.data.errors);
+				reject(err.response.data.errors);
+			});
+	});
+};
+
+// User favorites check
+// post .../user/favorites/check auth-jwt + {id} => {isFav}
+export const userFavoritesCheckAPI = (id) => {
+	const favoritesCheckUrl = `${baseUrl}/user/favorites/check`;
+	const jwt = store.getState().user.jwt;
+	const axiosConf = {
+		headers: { Authorization: `Bearer ${jwt}` },
+	};
+
+	return new Promise((resolve, reject) => {
+		axios
+			.post(favoritesCheckUrl, id, axiosConf)
+			.then((res) => {
+				console.log("user-favorites-check res:", res.data);
+				resolve(res.data);
+			})
+			.catch((err) => {
+				console.log("user-favorites-check errors:", err.response.data.errors);
 				reject(err.response.data.errors);
 			});
 	});

@@ -10,6 +10,7 @@ import {
 	ScrollView,
 } from "react-native";
 import { baseUrl } from "../api/api";
+import { FavButton } from "../components/FavButton";
 import colors from "../constants/colors";
 import { useCarsDetails } from "../customHooks/useCarsDetails";
 
@@ -75,6 +76,14 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		fontSize: 25,
 		marginBottom: 5,
+		fontWeight: "600",
+	},
+	favButton: {
+		position: "absolute",
+		right: 0,
+		marginRight: 10,
+		marginTop: "59%",
+		zIndex: 5,
 	},
 });
 
@@ -82,7 +91,6 @@ export default ({ route }) => {
 	const id = route.params.id;
 	const { car, isLoading } = useCarsDetails(id);
 
-	// TODO add fav button
 	return (
 		<View style={styles.container}>
 			<LinearGradient
@@ -102,6 +110,7 @@ export default ({ route }) => {
 							style={styles.image}
 							resizeMode="cover"
 						/>
+						<FavButton style={styles.favButton} id={id} />
 						<View style={styles.header}>
 							<View style={styles.titleContainer}>
 								<Text style={styles.tittle}>{car.name}</Text>
