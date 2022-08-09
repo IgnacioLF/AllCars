@@ -1,5 +1,6 @@
 import userFavoritesAddController from '#Controllers/user-favorites-add.controller.js';
 import userFavoritesAllController from '#Controllers/user-favorites-all.controller.js';
+import userFavoritesCheckController from '#Controllers/user-favorites-check.controller.js';
 import userFavoritesRemoveController from '#Controllers/user-favorites-remove.controller.js';
 import userLoginController from '#Controllers/user-login.controller.js';
 import userProfileController from '#Controllers/user-profile.controller.js';
@@ -44,5 +45,11 @@ userRouter.delete(
     userFavoritesRemoveController
 );
 userRouter.get('/favorites/all', userJWTDTO, userFavoritesAllController);
+userRouter.post(
+    '/favorites/check',
+    userJWTDTO,
+    carIDDTO,
+    userFavoritesCheckController
+);
 
 export default userRouter;
