@@ -21,8 +21,18 @@ const screenGlobalOptionStyle = {
 const MainStack = createStackNavigator();
 const AccountStack = createStackNavigator();
 const CarStack = createStackNavigator();
+const FavStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
+
+const FavStackScreen = () => {
+	return (
+		<FavStack.Navigator screenOptions={screenGlobalOptionStyle}>
+			<FavStack.Screen name="Favorites" component={Favorites} />
+			<FavStack.Screen name="CarDetails" component={CarDetails} />
+		</FavStack.Navigator>
+	);
+};
 
 const CarsStackScreen = () => {
 	return (
@@ -71,8 +81,8 @@ const HomeTabNavigator = () => {
 				}}
 			/>
 			<Tab.Screen
-				name="Favorites"
-				component={Favorites}
+				name="FavoritesTab"
+				component={FavStackScreen}
 				options={{
 					tabBarLabel: "Favoritos",
 					tabBarIcon: ({ color }) => (

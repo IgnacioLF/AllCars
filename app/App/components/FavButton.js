@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 
 export const FavButton = (props) => {
 	const { id } = props;
-	const [Fav, setFav] = useState(false);
+	const [fav, setFav] = useState(false);
 	useEffect(() => {
 		const getIsFav = async () => {
 			try {
@@ -70,7 +70,7 @@ export const FavButton = (props) => {
 	};
 	return (
 		<View {...props}>
-			{Fav ? (
+			{fav ? (
 				<TouchableOpacity
 					style={styles.button}
 					onPress={handleRemoveFav}

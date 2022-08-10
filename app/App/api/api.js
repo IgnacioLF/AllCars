@@ -239,7 +239,7 @@ export const userFavoritesRemoveAPI = (id) => {
 };
 
 // User favorites all
-// get .../user/favorites/all auth-jwt => 200
+// get .../user/favorites/all auth-jwt => [{favorites}...]
 export const userFavoritesAllAPI = () => {
 	const favoritesAllUrl = `${baseUrl}/user/favorites/all`;
 	const jwt = store.getState().user.jwt;
