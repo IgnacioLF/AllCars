@@ -45,7 +45,7 @@ export const FavButton = (props) => {
 				const { isFav } = await userFavoritesCheckAPI({ id });
 				setFav(isFav);
 			} catch (error) {
-				console.log();
+				//	console.log();
 			}
 		};
 		getIsFav();
@@ -56,7 +56,7 @@ export const FavButton = (props) => {
 			await userFavoritesAddAPI({ id });
 			setFav(true);
 		} catch (error) {
-			console.log();
+			//	console.log();
 		}
 	};
 
@@ -65,7 +65,7 @@ export const FavButton = (props) => {
 			await userFavoritesRemoveAPI(id);
 			setFav(false);
 		} catch (error) {
-			console.log();
+			//	console.log();
 		}
 	};
 	return (

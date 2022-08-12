@@ -12,7 +12,7 @@ export const useCarsData = () => {
 				const { cars } = await carAllAPI();
 				setCarsData(cars);
 			} catch (err) {
-				console.log();
+				//	console.log();
 				setError(err);
 			} finally {
 				setIsLoading(false);

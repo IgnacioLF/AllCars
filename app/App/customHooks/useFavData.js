@@ -14,7 +14,7 @@ export const useFavData = () => {
 				const { favorites } = await userFavoritesAllAPI();
 				setFavData(favorites);
 			} catch (err) {
-				console.log();
+				//	console.log();
 				setError(err);
 			} finally {
 				setIsLoading(false);

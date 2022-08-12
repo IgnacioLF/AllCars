@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	icon: {
-		width: "100%",
-		height: "20%",
+		width: 180,
+		height: 170,
 		justifyContent: "center",
 		alignSelf: "center",
 		marginTop: "10%",
@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	formContainer: {
-		flex: 1,
+		height: "100%",
+		width: "100%",
 		justifyContent: "center",
 	},
 	errorText: {
@@ -76,7 +77,6 @@ export default ({ navigation }) => {
 		Alert.alert("Actualización de usuario", "Usuario actualizado con éxito", [
 			{ text: "OK" },
 		]);
-
 	const submit = async (data) => {
 		setIsLoading(true);
 		resetField("password");
@@ -131,7 +131,6 @@ export default ({ navigation }) => {
 						translucent
 						backgroundColor="transparent"
 					/>
-
 					<View style={styles.formContainer}>
 						<Image
 							source={require("../assets/images/userIcon.png")}

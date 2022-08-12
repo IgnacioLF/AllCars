@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
 
 export const CarItem = ({ image, name, type, price, onPress }) => {
 	const imageURL = `${baseUrl}/${image.replace(/[/]/, "/")}`;
-	// TODO styles for diferent types
 
 	return (
 		<TouchableOpacity style={styles.container} onPress={onPress}>

@@ -12,15 +12,19 @@ export const userLoginAPI = (loginData) => {
 		axios
 			.post(loginUrl, loginData)
 			.then((res) => {
-				console.log("login res:", res.data);
-				/* jwt = res.data.jwt; */
+				//	console.log("login res:", res.data);
 				store.dispatch(addJWT(res.data.jwt));
 
 				resolve();
 			})
 			.catch((err) => {
-				console.log("login errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("login errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("login errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -33,12 +37,17 @@ export const userRegisterAPI = (registerData) => {
 		axios
 			.post(registerUrl, registerData)
 			.then((res) => {
-				console.log("register res:", res.data);
+				//	console.log("register res:", res.data);
 				resolve();
 			})
 			.catch((err) => {
-				console.log("register errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("register errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("register errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -56,12 +65,17 @@ export const userProfileAPI = () => {
 		axios
 			.get(profileUrl, axiosConf)
 			.then((res) => {
-				console.log("profile res:", res.data);
+				//	console.log("profile res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("profile errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("profile errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("profile errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -79,12 +93,17 @@ export const userUpdateProfileAPI = (updateProfileData) => {
 		axios
 			.patch(updateProfileUrl, updateProfileData, axiosConf)
 			.then((res) => {
-				console.log("update-profile res:", res.data);
+				//	console.log("update-profile res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("update-profile errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("update-profile errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("update-profile errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -102,12 +121,17 @@ export const userUpdatePasswordAPI = (updatePasswordData) => {
 		axios
 			.patch(updatePasswordUrl, updatePasswordData, axiosConf)
 			.then((res) => {
-				console.log("update-password res:", res.data);
+				//	console.log("update-password res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("update-password errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("update-password errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("update-password errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -121,12 +145,17 @@ export const carAllAPI = () => {
 		axios
 			.get(allUrl)
 			.then((res) => {
-				console.log("car-all res:", res.data);
+				//	console.log("car-all res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("car-all errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("car-all errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("car-all errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -140,12 +169,17 @@ export const carCarAPI = (idCar) => {
 		axios
 			.post(carUrl, idCar)
 			.then((res) => {
-				console.log("car-car res:", res.data);
+				//	console.log("car-car res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("car-car errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("car-car errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("car-car errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -159,13 +193,17 @@ export const photoAlldayAPI = () => {
 		axios
 			.get(alldayUrl)
 			.then((res) => {
-				console.log("photo-allday res:", res.data);
+				//	console.log("photo-allday res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("photo-allday errors:", err);
-				console.log("photo-allday errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("photo-allday errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("photo-allday errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -179,12 +217,17 @@ export const photoAllnightAPI = () => {
 		axios
 			.get(allnightUrl)
 			.then((res) => {
-				console.log("photo-allnight res:", res.data);
+				//	console.log("photo-allnight res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("photo-allnight errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					console.log("photo-allnight errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("photo-allnight errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -202,12 +245,17 @@ export const userFavoritesAddAPI = (id) => {
 		axios
 			.patch(favoritesAddUrl, id, axiosConf)
 			.then((res) => {
-				console.log("user-favorites-add res:", res.data);
+				//	console.log("user-favorites-add res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("user-favorites-add errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("user-favorites-add errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("user-favorites-add errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -228,12 +276,20 @@ export const userFavoritesRemoveAPI = (id) => {
 		axios
 			.delete(favoritesRemoveUrl, axiosConf)
 			.then((res) => {
-				console.log("user-favorites-remove res:", res.data);
+				//	console.log("user-favorites-remove res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("user-favorites-remove errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					/* console.log(
+						"user-favorites-remove errors:",
+						err.response.data.errors
+					); */
+					reject(err.response.data.errors);
+				} else {
+					// console.log("user-favorites-remove errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -251,12 +307,17 @@ export const userFavoritesAllAPI = () => {
 		axios
 			.get(favoritesAllUrl, axiosConf)
 			.then((res) => {
-				console.log("user-favorites-all res:", res.data);
+				// console.log("user-favorites-all res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("user-favorites-all errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("user-favorites-all errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("user-favorites-all errors:", err);
+					reject(err);
+				}
 			});
 	});
 };
@@ -274,12 +335,17 @@ export const userFavoritesCheckAPI = (id) => {
 		axios
 			.post(favoritesCheckUrl, id, axiosConf)
 			.then((res) => {
-				console.log("user-favorites-check res:", res.data);
+				//	console.log("user-favorites-check res:", res.data);
 				resolve(res.data);
 			})
 			.catch((err) => {
-				console.log("user-favorites-check errors:", err.response.data.errors);
-				reject(err.response.data.errors);
+				if (err.response.data.errors) {
+					//	console.log("user-favorites-check errors:", err.response.data.errors);
+					reject(err.response.data.errors);
+				} else {
+					//	console.log("user-favorites-check errors:", err);
+					reject(err);
+				}
 			});
 	});
 };

@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import LoginScreen from "../screens/Login";
-import Test from "../screens/Test";
 import Register from "../screens/Register";
 import Cars from "../screens/Cars";
 import CarDetails from "../screens/CarDetails";
@@ -112,7 +111,6 @@ const MainStackScreen = () => {
 			<MainStack.Screen name="Login" component={LoginScreen} />
 			<MainStack.Screen name="Register" component={Register} />
 			<MainStack.Screen name="Home" component={HomeTabNavigator} />
-			<MainStack.Screen name="Test" component={Test} />
 		</MainStack.Navigator>
 	);
 };

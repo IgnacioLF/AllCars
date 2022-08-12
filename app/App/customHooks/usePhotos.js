@@ -15,7 +15,7 @@ export const usePhotos = () => {
 					: await photoAllnightAPI();
 				setPhotosData(photos);
 			} catch (err) {
-				console.log();
+				//	console.log();
 			} finally {
 				setIsLoading(false);
 			}

@@ -3,7 +3,7 @@ import { applyMiddleware, legacy_createStore as createStore } from "redux";
 import logger from "redux-logger";
 import { persistStore } from "redux-persist";
 
-import rootReducer from "./rooReducer";
+import rootReducer from "./rootReducer";
 
 export const midlewares = [logger];
 
